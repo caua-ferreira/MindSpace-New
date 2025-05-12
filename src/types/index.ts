@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 import { ReactNode } from 'react';
 
+=======
+>>>>>>> 1a4a837 (Add files via upload)
 export interface Appointment {
   id: string;
   patientId: string;
@@ -11,6 +14,7 @@ export interface Appointment {
   notes?: string;
   type: 'in-person' | 'online';
   paymentStatus: 'pending' | 'paid' | 'partial' | 'insurance';
+<<<<<<< HEAD
   sessionNotes?: string;
   diagnosis?: string;
   treatment?: string;
@@ -20,6 +24,8 @@ export interface Appointment {
     coveragePercentage: number;
   };
   paymentAmount?: number;
+=======
+>>>>>>> 1a4a837 (Add files via upload)
 }
 
 export interface Patient {
@@ -36,6 +42,7 @@ export interface Patient {
   joinedAt: string;
   status: 'active' | 'inactive';
   profileImage?: string;
+<<<<<<< HEAD
   totalSpent?: number;
   lastAppointment?: string;
   upcomingAppointment?: string;
@@ -56,6 +63,8 @@ export interface ConsultationNote {
   medications?: string[];
   followUpDate?: string;
   isPrivate: boolean;
+=======
+>>>>>>> 1a4a837 (Add files via upload)
 }
 
 export interface Psychologist {
@@ -63,13 +72,18 @@ export interface Psychologist {
   name: string;
   email: string;
   phone: string;
+<<<<<<< HEAD
   licenseNumber: string;
+=======
+  licenseNumber: string; // CRP
+>>>>>>> 1a4a837 (Add files via upload)
   specializations: string[];
   availability: Availability[];
   bio: string;
   hourlyRate: number;
   profileImage?: string;
   status: 'active' | 'inactive';
+<<<<<<< HEAD
   totalPatients?: number;
   totalAppointments?: number;
   averageRating?: number;
@@ -99,6 +113,14 @@ export interface Availability {
   dayOfWeek: number;
   startTime: string;
   endTime: string;
+=======
+}
+
+export interface Availability {
+  dayOfWeek: number; // 0-6 (Sunday to Saturday)
+  startTime: string; // HH:MM format
+  endTime: string; // HH:MM format
+>>>>>>> 1a4a837 (Add files via upload)
 }
 
 export interface DashboardStats {
@@ -109,6 +131,7 @@ export interface DashboardStats {
   upcomingAppointments: number;
   activePatients: number;
   activePsychologists: number;
+<<<<<<< HEAD
   revenueByType?: {
     insurance: number;
     private: number;
@@ -165,3 +188,8 @@ export interface Toast {
   description?: string;
   type: 'success' | 'error' | 'warning' | 'info';
 }
+=======
+}
+
+export type ThemeMode = 'light' | 'dark';
+>>>>>>> 1a4a837 (Add files via upload)

@@ -1,13 +1,19 @@
 import React from 'react';
+<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
+=======
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './contexts/ThemeContext';
+>>>>>>> 1a4a837 (Add files via upload)
 import MainLayout from './components/layout/MainLayout';
 import Dashboard from './pages/Dashboard';
 import CalendarPage from './pages/Calendar';
 import Psychologists from './pages/Psychologists';
 import Patients from './pages/Patients';
 import Settings from './pages/Settings';
+<<<<<<< HEAD
 import Login from './pages/Login';
 import UserManagement from './pages/UserManagement';
 import { useAuth } from './contexts/AuthContext';
@@ -49,6 +55,24 @@ function App() {
         </Router>
       </ThemeProvider>
     </AuthProvider>
+=======
+
+function App() {
+  return (
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="calendar" element={<CalendarPage />} />
+            <Route path="psychologists" element={<Psychologists />} />
+            <Route path="patients" element={<Patients />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </Router>
+    </ThemeProvider>
+>>>>>>> 1a4a837 (Add files via upload)
   );
 }
 
