@@ -23,8 +23,22 @@ const AppointmentDetailsModal: React.FC<AppointmentDetailsModalProps> = ({
   psychologist,
   onUpdate
 }) => {
+  // Protege contra dados indefinidos
+  if (!appointment || !patient || !psychologist) return null;
+
   const [isEditing, setIsEditing] = useState(false);
   const [editedAppointment, setEditedAppointment] = useState(appointment);
+
+  // Garante que a data está no formato ISO
+  const getSafeDate = (dateStr: string) => {
+    // Se já estiver no formato ISO, retorna, senão tenta converter
+    if (/^\d{4}-\d{2}-\d{2}/.test(dateStr)) return dateStr;
+    try {
+      return format(parseISO(dateStr), 'yyyy-MM-dd');
+    } catch {
+      return '';
+    }
+  };
 
   const handleSave = () => {
     onUpdate(editedAppointment);
@@ -51,7 +65,9 @@ const AppointmentDetailsModal: React.FC<AppointmentDetailsModalProps> = ({
         <DialogHeader>
           <DialogTitle>Detalhes da Consulta</DialogTitle>
           <DialogDescription>
-            {format(parseISO(appointment.date), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
+            {appointment.date
+              ? format(parseISO(getSafeDate(appointment.date)), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
+              : 'Data não informada'}
           </DialogDescription>
         </DialogHeader>
 
