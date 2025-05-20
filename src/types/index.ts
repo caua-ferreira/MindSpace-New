@@ -14,6 +14,12 @@ export interface Appointment {
   sessionNotes?: string;
   diagnosis?: string;
   treatment?: string;
+  insuranceDetails?: {
+    provider: string;
+    authorizationNumber?: string;
+    coveragePercentage: number;
+  };
+  paymentAmount?: number;
 }
 
 export interface Patient {
@@ -36,6 +42,20 @@ export interface Patient {
   preferredPsychologist?: string;
   medicalHistory?: string[];
   documents?: Document[];
+  consultationHistory?: ConsultationNote[];
+}
+
+export interface ConsultationNote {
+  id: string;
+  appointmentId: string;
+  date: string;
+  psychologistId: string;
+  content: string;
+  diagnosis?: string;
+  treatment?: string;
+  medications?: string[];
+  followUpDate?: string;
+  isPrivate: boolean;
 }
 
 export interface Psychologist {
@@ -60,6 +80,10 @@ export interface Psychologist {
   appointmentTypes?: {
     inPerson: number;
     online: number;
+  };
+  insuranceAcceptance?: {
+    providers: string[];
+    rates: Record<string, number>;
   };
 }
 
@@ -93,17 +117,38 @@ export interface DashboardStats {
     inPerson: number;
     online: number;
   };
+  psychologistStats?: {
+    id: string;
+    name: string;
+    appointmentsToday: number;
+    appointmentsThisWeek: number;
+    revenue: number;
+  }[];
 }
+
+export type UserRole = 'admin' | 'psychologist' | 'receptionist' | 'financial';
 
 export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'admin' | 'psychologist' | 'receptionist' | 'financial';
-  permissions: string[];
+  role: UserRole;
+  permissions: Permission[];
   lastLogin?: string;
   status: 'active' | 'inactive';
+  psychologistId?: string; // Only for users with role 'psychologist'
 }
+
+export type Permission = 
+  | 'manage_users'
+  | 'view_financial'
+  | 'manage_appointments'
+  | 'manage_patients'
+  | 'manage_psychologists'
+  | 'view_consultation_notes'
+  | 'manage_consultation_notes'
+  | 'view_dashboard'
+  | 'manage_settings';
 
 export type ThemeMode = 'light' | 'dark';
 
@@ -112,4 +157,11 @@ export interface ModalProps {
   onClose: () => void;
   children: ReactNode;
   title: string;
+}
+
+export interface Toast {
+  id: string;
+  title: string;
+  description?: string;
+  type: 'success' | 'error' | 'warning' | 'info';
 }
