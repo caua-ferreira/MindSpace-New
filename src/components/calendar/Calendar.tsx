@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
-import { format, addDays, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, parseISO } from 'date-fns';
+import { format, addDays, addMonths, subMonths, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, parseISO, startOfWeek, endOfWeek, eachWeekOfInterval } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Appointment, Patient, Psychologist } from '../../types';
 import AppointmentCard from './AppointmentCard';
+import AppointmentDetailsModal from './AppointmentDetailsModal';
+import NewAppointmentModal from './NewAppointmentModal';
 import Button from '../ui/Button';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '../ui/Dialog';
+import { useAppointmentStore } from '../../store/appointmentStore';
 
 interface CalendarProps {
   appointments: Appointment[];
@@ -25,6 +27,9 @@ const Calendar: React.FC<CalendarProps> = ({
     patient: Patient;
     psychologist: Psychologist;
   } | null>(null);
+  const [isNewAppointmentModalOpen, setIsNewAppointmentModalOpen] = useState(false);
+
+  const updateAppointment = useAppointmentStore(state => state.updateAppointment);
 
   // Function to get patient by ID
   const getPatient = (id: string): Patient => {
@@ -44,6 +49,16 @@ const Calendar: React.FC<CalendarProps> = ({
   // Get appointments for the current day
   const getDayAppointments = (date: Date): Appointment[] => {
     return appointments.filter(app => app.date === formatDate(date));
+  };
+
+  // Get appointments for the current week
+  const getWeekAppointments = (date: Date): Appointment[] => {
+    const start = startOfWeek(date, { weekStartsOn: 0 });
+    const end = endOfWeek(date, { weekStartsOn: 0 });
+    return appointments.filter(app => {
+      const appDate = parseISO(app.date);
+      return appDate >= start && appDate <= end;
+    });
   };
 
   // Get appointments for the current month
@@ -78,12 +93,6 @@ const Calendar: React.FC<CalendarProps> = ({
     }
   };
 
-  // Handle new appointment
-  const handleNewAppointment = () => {
-    console.log('New appointment clicked');
-    // Add your new appointment logic here
-  };
-
   const handleAppointmentClick = (appointment: Appointment) => {
     setSelectedAppointment({
       appointment,
@@ -93,10 +102,48 @@ const Calendar: React.FC<CalendarProps> = ({
   };
 
   const handleAppointmentUpdate = (updatedAppointment: Appointment) => {
-    // Here you would typically update the appointment in your backend
-    console.log('Updating appointment:', updatedAppointment);
-    // For now, we'll just close the modal
+    updateAppointment(updatedAppointment);
     setSelectedAppointment(null);
+  };
+
+  // Render week view
+  const renderWeekView = () => {
+    const start = startOfWeek(currentDate, { weekStartsOn: 0 });
+    const days = Array.from({ length: 7 }, (_, i) => addDays(start, i));
+    const weekAppointments = getWeekAppointments(currentDate);
+
+    return (
+      <div className="grid grid-cols-7 gap-4">
+        {days.map((day, index) => (
+          <div key={index} className="min-h-[600px]">
+            <div className="text-center mb-4">
+              <div className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                {format(day, 'EEE', { locale: ptBR })}
+              </div>
+              <div className={`text-lg font-semibold ${
+                isSameDay(day, new Date()) ? 'text-teal-600 dark:text-teal-400' : ''
+              }`}>
+                {format(day, 'd')}
+              </div>
+            </div>
+            <div className="space-y-2">
+              {weekAppointments
+                .filter(app => app.date === formatDate(day))
+                .map(appointment => (
+                  <AppointmentCard
+                    key={appointment.id}
+                    appointment={appointment}
+                    patient={getPatient(appointment.patientId)}
+                    psychologist={getPsychologist(appointment.psychologistId)}
+                    onClick={() => handleAppointmentClick(appointment)}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   };
 
   // Render month view
@@ -218,7 +265,7 @@ const Calendar: React.FC<CalendarProps> = ({
           <Button 
             icon={<Plus size={16} />}
             size="sm"
-            onClick={handleNewAppointment}
+            onClick={() => setIsNewAppointmentModalOpen(true)}
           >
             Nova Consulta
           </Button>
@@ -227,6 +274,8 @@ const Calendar: React.FC<CalendarProps> = ({
       
       {activeView === 'month' ? (
         renderMonthView()
+      ) : activeView === 'week' ? (
+        renderWeekView()
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
           {getDayAppointments(currentDate).length > 0 ? (
@@ -251,7 +300,7 @@ const Calendar: React.FC<CalendarProps> = ({
               <Button 
                 icon={<Plus size={16} />}
                 size="sm"
-                onClick={handleNewAppointment}
+                onClick={() => setIsNewAppointmentModalOpen(true)}
               >
                 Agendar Consulta
               </Button>
@@ -270,6 +319,14 @@ const Calendar: React.FC<CalendarProps> = ({
           onUpdate={handleAppointmentUpdate}
         />
       )}
+
+      <NewAppointmentModal
+        isOpen={isNewAppointmentModalOpen}
+        onClose={() => setIsNewAppointmentModalOpen(false)}
+        date={formatDate(currentDate)}
+        patients={patients}
+        psychologists={psychologists}
+      />
     </div>
   );
 };
