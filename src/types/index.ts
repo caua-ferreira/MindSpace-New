@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { ReactNode } from 'react';
 
-=======
->>>>>>> 1a4a837 (Add files via upload)
-=======
-import { ReactNode } from 'react';
-
->>>>>>> 692562c (Salvando alterações locais antes do pull)
 export interface Appointment {
   id: string;
   patientId: string;
@@ -19,10 +11,6 @@ export interface Appointment {
   notes?: string;
   type: 'in-person' | 'online';
   paymentStatus: 'pending' | 'paid' | 'partial' | 'insurance';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 692562c (Salvando alterações locais antes do pull)
   sessionNotes?: string;
   diagnosis?: string;
   treatment?: string;
@@ -32,11 +20,6 @@ export interface Appointment {
     coveragePercentage: number;
   };
   paymentAmount?: number;
-<<<<<<< HEAD
-=======
->>>>>>> 1a4a837 (Add files via upload)
-=======
->>>>>>> 692562c (Salvando alterações locais antes do pull)
 }
 
 export interface Patient {
@@ -53,10 +36,6 @@ export interface Patient {
   joinedAt: string;
   status: 'active' | 'inactive';
   profileImage?: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 692562c (Salvando alterações locais antes do pull)
   totalSpent?: number;
   lastAppointment?: string;
   upcomingAppointment?: string;
@@ -77,11 +56,6 @@ export interface ConsultationNote {
   medications?: string[];
   followUpDate?: string;
   isPrivate: boolean;
-<<<<<<< HEAD
-=======
->>>>>>> 1a4a837 (Add files via upload)
-=======
->>>>>>> 692562c (Salvando alterações locais antes do pull)
 }
 
 export interface Psychologist {
@@ -89,25 +63,13 @@ export interface Psychologist {
   name: string;
   email: string;
   phone: string;
-<<<<<<< HEAD
-<<<<<<< HEAD
   licenseNumber: string;
-=======
-  licenseNumber: string; // CRP
->>>>>>> 1a4a837 (Add files via upload)
-=======
-  licenseNumber: string;
->>>>>>> 692562c (Salvando alterações locais antes do pull)
   specializations: string[];
   availability: Availability[];
   bio: string;
   hourlyRate: number;
   profileImage?: string;
   status: 'active' | 'inactive';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 692562c (Salvando alterações locais antes do pull)
   totalPatients?: number;
   totalAppointments?: number;
   averageRating?: number;
@@ -131,29 +93,12 @@ export interface Document {
   type: string;
   url: string;
   uploadedAt: string;
-<<<<<<< HEAD
 }
 
 export interface Availability {
   dayOfWeek: number;
   startTime: string;
   endTime: string;
-=======
-}
-
-export interface Availability {
-  dayOfWeek: number; // 0-6 (Sunday to Saturday)
-  startTime: string; // HH:MM format
-  endTime: string; // HH:MM format
->>>>>>> 1a4a837 (Add files via upload)
-=======
-}
-
-export interface Availability {
-  dayOfWeek: number;
-  startTime: string;
-  endTime: string;
->>>>>>> 692562c (Salvando alterações locais antes do pull)
 }
 
 export interface DashboardStats {
@@ -164,10 +109,6 @@ export interface DashboardStats {
   upcomingAppointments: number;
   activePatients: number;
   activePsychologists: number;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 692562c (Salvando alterações locais antes do pull)
   revenueByType?: {
     insurance: number;
     private: number;
@@ -223,13 +164,4 @@ export interface Toast {
   title: string;
   description?: string;
   type: 'success' | 'error' | 'warning' | 'info';
-<<<<<<< HEAD
 }
-=======
-}
-
-export type ThemeMode = 'light' | 'dark';
->>>>>>> 1a4a837 (Add files via upload)
-=======
-}
->>>>>>> 692562c (Salvando alterações locais antes do pull)

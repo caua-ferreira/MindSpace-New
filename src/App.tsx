@@ -1,28 +1,13 @@
 import React from 'react';
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider } from './contexts/AuthContext';
-=======
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider } from './contexts/ThemeContext';
->>>>>>> 1a4a837 (Add files via upload)
-=======
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { AuthProvider } from './contexts/AuthContext';
->>>>>>> 692562c (Salvando alterações locais antes do pull)
 import MainLayout from './components/layout/MainLayout';
 import Dashboard from './pages/Dashboard';
 import CalendarPage from './pages/Calendar';
 import Psychologists from './pages/Psychologists';
 import Patients from './pages/Patients';
 import Settings from './pages/Settings';
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 692562c (Salvando alterações locais antes do pull)
 import Login from './pages/Login';
 import UserManagement from './pages/UserManagement';
 import { useAuth } from './contexts/AuthContext';
@@ -36,7 +21,6 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
   
   return <>{children}</>;
 };
-<<<<<<< HEAD
 
 function App() {
   return (
@@ -65,54 +49,6 @@ function App() {
         </Router>
       </ThemeProvider>
     </AuthProvider>
-=======
-
-function App() {
-  return (
-    <ThemeProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<MainLayout />}>
-            <Route index element={<Dashboard />} />
-            <Route path="calendar" element={<CalendarPage />} />
-            <Route path="psychologists" element={<Psychologists />} />
-            <Route path="patients" element={<Patients />} />
-            <Route path="settings" element={<Settings />} />
-          </Route>
-        </Routes>
-      </Router>
-    </ThemeProvider>
->>>>>>> 1a4a837 (Add files via upload)
-=======
-
-function App() {
-  return (
-    <AuthProvider>
-      <ThemeProvider>
-        <Router>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <MainLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Dashboard />} />
-              <Route path="calendar" element={<CalendarPage />} />
-              <Route path="psychologists" element={<Psychologists />} />
-              <Route path="patients" element={<Patients />} />
-              <Route path="settings" element={<Settings />} />
-              <Route path="users" element={<UserManagement />} />
-            </Route>
-          </Routes>
-        </Router>
-      </ThemeProvider>
-    </AuthProvider>
->>>>>>> 692562c (Salvando alterações locais antes do pull)
   );
 }
 
