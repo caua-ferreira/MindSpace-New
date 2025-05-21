@@ -11,11 +11,15 @@
   },
   "dependencies": {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 692562c (Salvando alterações locais antes do pull)
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-popover": "^1.0.7",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
+<<<<<<< HEAD
     "date-fns": "^3.3.1",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
@@ -28,6 +32,15 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.22.3"
 >>>>>>> 1a4a837 (Add files via upload)
+=======
+    "@supabase/supabase-js": "^2.39.7",
+    "date-fns": "^3.3.1",
+    "lucide-react": "^0.344.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.22.3",
+    "zustand": "^4.5.2"
+>>>>>>> 692562c (Salvando alterações locais antes do pull)
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
